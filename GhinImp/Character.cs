@@ -4,10 +4,10 @@ namespace GhinImp;
 
 public record Character
 {
-    public string Name { get; init; }
+    public string Name { get; }
     public string Element { get; }
-    public int AttackPower { init; }
-    public List<Skill> Skills;
+    public int AttackPower { get; }
+    private List<Skill> Skills { get; }
 
     public Character(string name, string element, int attackPower, List<Skill> skills)
     {
@@ -18,17 +18,13 @@ public record Character
     }
 
     // Метод для проверки силы атаки
-    public void IsPowerful()
+    public bool IsPowerful()
     {
         return AttackPower > 80;
     }
     
     public int CalculateTotalSkillDamage()
     {
-        foreach (var skill in Skills)
-        {
-            totalDamage += skill.CalculateSkillDamage();
-        }
-        return totalDamage;
+        return Skills.Sum(skill => skill.CalculateSkillDamage());
     }
 }
